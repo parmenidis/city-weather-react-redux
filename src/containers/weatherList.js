@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Sparklines, Sparkline } from 'react-sparklines';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Sparklines, SparklinesLine} from 'react-sparklines';
 
 class WeatherList extends Component {
 
     renderWeather(cityData) {
         const name = cityData.city.name;
-        const temps = cityData.list.map(
-            weather => weather.main.temp
-        );
+
+        const temps = cityData.list.map(weather => weather.main.temp);
 
         return (
             <tr key={name}>
@@ -18,10 +17,11 @@ class WeatherList extends Component {
                 <td>
                     <Sparklines
                         data={temps}
-                        height={120}
-                        width={180}
+                        width={90}
+                        height={35}
+                        margin={4}
                     >
-                        <Sparkline />
+                        <SparklinesLine color="red"/>
                     </Sparklines>
                 </td>
             </tr>
@@ -40,15 +40,15 @@ class WeatherList extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                    { this.props.weather.map(this.renderWeather) }
+                { this.props.weather.map(this.renderWeather) }
                 </tbody>
             </table>
         );
     }
 }
 
-function mapStateToProps({ weather }) {
-    return { weather };
+function mapStateToProps({weather}) {
+    return {weather};
 }
 
 export default connect(mapStateToProps)(WeatherList);
